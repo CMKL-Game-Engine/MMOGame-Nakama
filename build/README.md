@@ -39,7 +39,7 @@ These steps are run for each new release.
 3. Execute the cross-compiled build helper.
 
    ```
-   xgo --targets=darwin/arm64,darwin/amd64,linux/amd64,linux/arm64,windows/amd64 --trimpath --ldflags "-s -w -X main.version=2.1.0 -X main.commitID=$(git rev-parse --short HEAD 2>/dev/null)" github.com/heroiclabs/nakama
+   xgo --targets=darwin/arm64,darwin/amd64,linux/amd64,linux/arm64,windows/amd64 --trimpath --ldflags "-s -w -X main.version=2.1.0 -X main.commitID=$(git rev-parse --short HEAD 2>/dev/null)" github.com/CMKL-Game-Engine/MMOGame-Nakama
    ```
 
    This will build binaries for all target platforms supported officially by Heroic Labs.
@@ -60,15 +60,15 @@ With the release generated we can create the official container image.
 
    ```
    cd build
-   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t heroiclabs/nakama:2.1.0
+   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t mmogame-nakama:2.1.0
    ```
 
 2. Push the image to the container registry.
 
    ```
-   docker tag <CONTAINERID> heroiclabs/nakama:latest
-   docker push heroiclabs/nakama:2.1.0
-   docker push heroiclabs/nakama:latest
+   docker tag <CONTAINERID> mmogame-nakama:latest
+   docker push mmogame-nakama:2.1.0
+   docker push mmogame-nakama:latest
    ```
 
 ## Build Nakama Image (dSYM)
@@ -79,15 +79,15 @@ With the release generated we can also create an official container image which 
 
    ```
    cd build
-   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile.dsym --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t heroiclabs/nakama-dsym:2.1.0
+   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile.dsym --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t mmogame-nakama-dsym:2.1.0
    ```
 
 2. Push the image to the container registry.
 
    ```
-   docker tag <CONTAINERID> heroiclabs/nakama-dsym:latest
-   docker push heroiclabs/nakama-dsym:2.1.0
-   docker push heroiclabs/nakama-dsym:latest
+   docker tag <CONTAINERID> mmogame-nakama-dsym:latest
+   docker push mmogame-nakama-dsym:2.1.0
+   docker push mmogame-nakama-dsym:latest
    ```
 
 ## Build Plugin Builder Image
@@ -98,13 +98,13 @@ With the official release image generated we can create a container image to hel
 
    ```
    cd build/pluginbuilder
-   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t heroiclabs/nakama-pluginbuilder:2.1.0
+   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t mmogame-nakama-pluginbuilder:2.1.0
    ```
 
 2. Push the image to the container registry.
 
    ```
-   docker tag <CONTAINERID> heroiclabs/nakama-pluginbuilder:latest
-   docker push heroiclabs/nakama-pluginbuilder:2.1.0
-   docker push heroiclabs/nakama-pluginbuilder:latest
+   docker tag <CONTAINERID> mmogame-nakama-pluginbuilder:latest
+   docker push mmogame-nakama-pluginbuilder:2.1.0
+   docker push mmogame-nakama-pluginbuilder:latest
    ```
