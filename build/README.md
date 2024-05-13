@@ -3,7 +3,7 @@ Release Instructions
 
 These instructions guide the release process for new official Nakama server builds.
 
-## Build and Release Prerequisites
+## Prerequisites
 - Installed [Protocol Buffers v24.4](https://github.com/protocolbuffers/protobuf/releases/tag/v24.4)
 - Active ghcr.io/cmkl-game-engine [personal access token (classic)](https://github.com/settings/tokens) with read/write permission
 - Save your personal access token (classic). We recommend saving your token as an environment variable
