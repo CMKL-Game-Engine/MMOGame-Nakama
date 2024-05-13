@@ -3,6 +3,20 @@ Release Instructions
 
 These instructions guide the release process for new official Nakama server builds.
 
+## Build and Release Prerequisites
+- Installed [Protocol Buffers v24.4](https://github.com/protocolbuffers/protobuf/releases/tag/v24.4)
+- Active ghcr.io/cmkl-game-engine [personal access token (classic)](https://github.com/settings/tokens) with read/write permission
+- Save your personal access token (classic). We recommend saving your token as an environment variable
+```
+export CR_PAT=YOUR_TOKEN
+```
+
+- Using the CLI for your container type, sign in to the Container registry service at ghcr.io.
+```
+$ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+> Login Succeeded
+```
+
 ## Steps
 
 To build releases for a variety of platforms we use the excellent [xgo](https://github.com/techknowlogick/xgo) project. You will need Docker engine installed. These steps should be followed from the project root folder.
@@ -60,15 +74,15 @@ With the release generated we can create the official container image.
 
    ```
    cd build
-   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t mmogame-nakama:2.1.0
+   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile --build-arg commit=<"$(git rev-parse HEAD 2>/dev/null)"> --build-arg version=2.1.0 -t mmogame-nakama:2.1.0
    ```
 
 2. Push the image to the container registry.
 
    ```
    docker tag <CONTAINERID> mmogame-nakama:latest
-   docker push mmogame-nakama:2.1.0
-   docker push mmogame-nakama:latest
+   docker push ghcr.io/cmkl-game-engine/mmogame-nakama:2.1.0
+   docker push ghcr.io/cmkl-game-engine/mmogame-nakama:latest
    ```
 
 ## Build Nakama Image (dSYM)
@@ -79,15 +93,15 @@ With the release generated we can also create an official container image which 
 
    ```
    cd build
-   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile.dsym --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t mmogame-nakama-dsym:2.1.0
+   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile.dsym --build-arg commit="$(git rev-parse HEAD 2>/dev/null)" --build-arg version=2.1.0 -t mmogame-nakama-dsym:2.1.0
    ```
 
 2. Push the image to the container registry.
 
    ```
    docker tag <CONTAINERID> mmogame-nakama-dsym:latest
-   docker push mmogame-nakama-dsym:2.1.0
-   docker push mmogame-nakama-dsym:latest
+   docker push ghcr.io/cmkl-game-engine/mmogame-nakama-dsym:2.1.0
+   docker push ghcr.io/cmkl-game-engine/mmogame-nakama-dsym:latest
    ```
 
 ## Build Plugin Builder Image
@@ -98,13 +112,13 @@ With the official release image generated we can create a container image to hel
 
    ```
    cd build/pluginbuilder
-   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile --build-arg commit="$(git rev-parse --short HEAD 2>/dev/null)" --build-arg version=2.1.0 -t mmogame-nakama-pluginbuilder:2.1.0
+   docker build "$PWD" --platform "linux/amd64" --file ./Dockerfile --build-arg commit="$(git rev-parse HEAD 2>/dev/null)" --build-arg version=2.1.0 -t mmogame-nakama-pluginbuilder:2.1.0
    ```
 
 2. Push the image to the container registry.
 
    ```
    docker tag <CONTAINERID> mmogame-nakama-pluginbuilder:latest
-   docker push mmogame-nakama-pluginbuilder:2.1.0
-   docker push mmogame-nakama-pluginbuilder:latest
+   docker push ghcr.io/cmkl-game-engine/mmogame-nakama-pluginbuilder:2.1.0
+   docker push ghcr.io/cmkl-game-engine/mmogame-nakama-pluginbuilder:latest
    ```
